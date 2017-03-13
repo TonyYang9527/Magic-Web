@@ -3,11 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	
+
 	<display-name>server</display-name>
-	<welcome-file-list>
-		<welcome-file>index.htm</welcome-file>
-	</welcome-file-list>
+
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -17,40 +15,20 @@
 		<param-name>logbackConfigLocation</param-name>
 		<param-value>classpath:logback.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-	<listener>
-		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener
-		</listener-class>
-	</listener>
-	<servlet>
-		<servlet-name>spring3mvc</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet
-		</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:applicationContext.xml</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>spring3mvc</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
-	<filter>
+
+	
+		<filter>
 		<filter-name>characterEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -60,14 +38,14 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>DruidWebStatFilter</filter-name>
-		<filter-class>com.alibaba.druid.support.http.WebStatFilter
-		</filter-class>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
 		<init-param>
 			<param-name>exclusions</param-name>
 			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
@@ -82,13 +60,56 @@
 		<filter-name>DruidWebStatFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
+	<!-- 防止spring内存溢出监听器 -->  
+    <listener>  
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
+    </listener>  
+	
+	<servlet>
+		<servlet-name>spring3mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring3mvc-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>spring3mvc</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
-		<servlet-class>com.alibaba.druid.support.http.StatViewServlet
-		</servlet-class>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
+	 -->
+		<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+	<error-page>
+        <error-code>401</error-code>
+        <location>/unauthorized.jsp</location>
+    </error-page>
+	<error-page>
+        <error-code>404</error-code>
+        <location>/index.jsp</location>
+    </error-page>
+	<error-page>
+        <error-code>500</error-code>
+        <location>/index.jsp</location>
+    </error-page>
 </web-app>
