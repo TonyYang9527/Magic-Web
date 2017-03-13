@@ -25,10 +25,13 @@
        http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-lazy-init="false">
-	
-    	<!-- 扫描web包，应用Spring的注解 -->
+
+	<!-- 扫描web包，应用Spring的注解 -->
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:property-placeholder location="classpath:system.properties" />
+
 	<context:component-scan base-package="com.cell.user"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
@@ -36,7 +39,30 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-	
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+				<value>*/*;charset=UTF-8</value>
+				<value>text/*;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- jsp视图 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -60,14 +86,14 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error页面 -->
+				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
 				<prop
 					key="org.springframework.web.multipart.MaxUploadSizeExceededException">error</prop>
 			</props>
 		</property>
 	</bean>
-		<!-- 静态资源不走controller -->
+	<!-- 静态资源不走controller -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+
 	<import resource="spring-dubbo-consumer.xml" />
 </beans>
