@@ -42,6 +42,7 @@ public class Result<T>implements Serializable {
 
     public Result(T result) {
         this.ret = 1;
+        this.message ="success";
         this.result = result;
     }
 

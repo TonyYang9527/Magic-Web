@@ -20,23 +20,25 @@
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
-	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
 			<list>
-				<value>text/html;charset=UTF-8</value>
+				<ref bean="mappingJackson2HttpMessageConverter" />
 			</list>
 		</property>
 	</bean>
 
-	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
 			<list>
-				<!-- json转换器 -->
-				<ref bean="mappingJacksonHttpMessageConverter" />
+				 <value>text/html;charset=UTF-8</value>
+			 	<value>text/plain;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+			    <value>*/*;charset=UTF-8</value>
+			    <value>text/*;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
 	</bean>
