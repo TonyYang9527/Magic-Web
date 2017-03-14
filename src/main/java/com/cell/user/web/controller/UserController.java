@@ -63,10 +63,6 @@ public class UserController extends BeanSupport {
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public Result<RoleVo> test() {
-
-		if(true)
-		return fail("返回异常");
-		
 		// // 获取远程服务代理
 		GetRoleReq req = new GetRoleReq();
 		req.setId(new Long(105));

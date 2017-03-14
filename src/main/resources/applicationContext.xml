@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:spring-security="http://www.springframework.org/schema/security"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:broker="http://activemq.apache.org/schema/core"
@@ -92,8 +92,8 @@
 			</props>
 		</property>
 	</bean>
-	<!-- 静态资源不走controller -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-
+	
+	<!-- 对静态资源的访问 -->
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	<import resource="spring-dubbo-consumer.xml" />
 </beans>
