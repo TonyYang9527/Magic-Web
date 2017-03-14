@@ -68,7 +68,6 @@
 			</list>
 		</property>
 	</bean>
-
 	<!-- jsp视图 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
