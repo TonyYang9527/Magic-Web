@@ -26,12 +26,19 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd"
 	default-lazy-init="false">
 
-	<!-- 扫描web包，应用Spring的注解 -->
+	<!-- 自动注册基于注解风格的处理器 -->
 	<mvc:annotation-driven />
-	<mvc:default-servlet-handler />
+	<!-- 注册自定义的处理器拦截器 -->
+	<!-- <mvc:interceptors> -->
+	<!-- 静态资源转交给默认的Servlet来响应静态文件 -->
+	<!-- <mvc:default-servlet-handler /> -->
+	<!-- 逻辑静态资源路径到物理静态资源路径的支持 js css png jpg -->
+	<mvc:resources mapping="/static/**" location="/static/" />
+	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+		<!--加载 dubbo 的配置文件 -->
 	<context:property-placeholder location="classpath:system.properties" />
-
+	<!--  spring的扫描器实现bean的自动载入 -->
 	<context:component-scan base-package="com.cell.user"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
@@ -39,7 +46,6 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
@@ -76,8 +82,8 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8" />
-		<!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
-		<property name="maxUploadSize" value="200000" />
+		<!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和  1024**1024*5即5M -->
+		<property name="maxUploadSize" value="5242880" />
 	</bean>
 
 	<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
@@ -92,8 +98,6 @@
 			</props>
 		</property>
 	</bean>
-	
-	<!-- 对静态资源的访问 -->
-	<mvc:resources location="/resources/" mapping="/resources/**"/>
+
 	<import resource="spring-dubbo-consumer.xml" />
 </beans>
