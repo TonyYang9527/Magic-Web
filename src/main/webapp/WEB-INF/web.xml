@@ -10,7 +10,7 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<!-- filter start -->
-	<!-- sitemesh page 装饰 -->
+	<!-- sitemesh page 装饰
 	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
@@ -18,8 +18,8 @@
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<!--配置SiteMesh标签库 -->
+	</filter-mapping> -->
+	<!--配置SiteMesh标签库 
 	<jsp-config>
 		<taglib>
 			<taglib-uri>sitemesh-page</taglib-uri>
@@ -30,7 +30,7 @@
 			<taglib-location>/WEB-INF/lib/sitemesh-decorator.tld</taglib-location>
 		</taglib>
 	</jsp-config>
-
+-->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
