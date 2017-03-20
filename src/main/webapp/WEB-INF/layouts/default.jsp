@@ -39,7 +39,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<!-- header -->
-		<jsp:include page="/WEB-INF/layouts/header.jsp" />
+		<!-- <jsp:include page="/WEB-INF/layouts/header.jsp" /> -->
 		<!-- left_app -->
 		<!--<jsp:include page="/WEB-INF/layouts/left_app.jsp" />-->
 		<div class="content-wrapper">

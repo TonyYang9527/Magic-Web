@@ -133,7 +133,7 @@
 
 	<!-- DruidStatView servlet end -->
 	<welcome-file-list>
-		<welcome-file>/jsp/index.jsp</welcome-file>
+		<welcome-file>/index.jsp</welcome-file>
 	</welcome-file-list>
 	<error-page>
 		<error-code>401</error-code>
@@ -141,10 +141,10 @@
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/jsp/index.jsp</location>
+		<location>/index.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/jsp/index.jsp</location>
+		<location>/index.jsp</location>
 	</error-page>
 </web-app>
