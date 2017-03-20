@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<decorators defaultdir="/WEB-INF/layouts/">
+
+	<!-- 此处用来定义不需要装饰器的页面 -->
+	<excludes>
+		<!-- 根目录下的index.jsp不会被装饰器修饰 -->
+		<!-- 接下去，如有需要，自行在此标签下加pattern，还可以使用*还说明问题 如<pattern>/a/*<pattern>就是指WebContent下的a文件夹的所有网页不使用装饰器 
+			如<pattern>/a/*.jsp<pattern>就是指WebContent下的a文件夹的所有jsp页面不使用装饰器 如<pattern>/a/b*<pattern>就是指WebContent下的a文件夹的所有b开头的页面不使用装饰器 
+			<pattern>/index.jsp</pattern> -->
+		<pattern>/static/*</pattern>
+		<pattern>/user/add.jsp</pattern> 
+	</excludes>
+
+	<!-- 用来定义要使用装饰器要过滤的页面 -->
+	<decorator name="main" page="default.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>  

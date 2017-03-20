@@ -1,5 +1,11 @@
 package com.cell.user.web.controller;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -20,6 +26,7 @@ import com.cell.user.vo.single.RoleVo;
 import com.cell.user.web.support.BeanSupport;
 import com.cell.user.web.support.Result;
 import com.cell.user.web.support.RetCodeConst;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 @Api(tags = { "消息服务" })
 @RestController
@@ -71,6 +78,21 @@ public class UserController extends BeanSupport {
 			return fail("返回异常");
 		return success(rsp.getRole());
 	}
+	
+	
+	
+	/**
+	 * 获取role
+	 * 
+	 * @param id
+	 */
+	@ApiOperation(value = "删除消息")
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@ResponseBody
+	public String  index() {
+
+		return "add";
+	}
 
 	// public static void main(String[] args) throws Exception {
 	//
@@ -85,4 +107,20 @@ public class UserController extends BeanSupport {
 	// System.out.println(JSON.toJSONString(rsp));
 	//
 	// }
+
+	public static void main(String[] args) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("123", "343");
+		map.put("123", "789");
+
+		Set<String> keys = map.keySet();
+		
+		Iterator<String> it =	keys.iterator() ;
+
+		while(it.hasNext()){
+			String  value =map.get(it.next()) ;
+			System.out.println(value);
+		}
+
+	}
 }
