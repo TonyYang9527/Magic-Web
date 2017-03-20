@@ -8,7 +8,6 @@
 			如<pattern>/a/*.jsp<pattern>就是指WebContent下的a文件夹的所有jsp页面不使用装饰器 如<pattern>/a/b*<pattern>就是指WebContent下的a文件夹的所有b开头的页面不使用装饰器 
 			<pattern>/index.jsp</pattern> -->
 		<pattern>/static/*</pattern>
-		<pattern>/user/add.jsp</pattern> 
 	</excludes>
 
 	<!-- 用来定义要使用装饰器要过滤的页面 -->
