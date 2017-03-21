@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,12 +25,13 @@ import com.cell.user.web.support.RetCodeConst;
 
 @Api(tags = { "消息服务" })
 @RestController
-// @Controller
 @RequestMapping("/services/user")
 public class UserController extends BeanSupport {
 
 	@Resource
 	private GetRoleFacade getRoleFacade;
+
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/**
 	 * 获取role
@@ -58,7 +61,7 @@ public class UserController extends BeanSupport {
 		GetRoleReq req = new GetRoleReq();
 		req.setId(new Long(105));
 		GetRoleRsp rsp = getRoleFacade.getRole(req);
-		String result = JSON.toJSONString(rsp);
+		 logger.info("req:{},rsp:{}", req, rsp); 
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode())) {
 			return fail("返回异常");
 		}
@@ -79,6 +82,7 @@ public class UserController extends BeanSupport {
 		req.setId(new Long(105));
 		GetRoleRsp rsp = getRoleFacade.getRole(req);
 		String result = JSON.toJSONString(rsp);
+		 logger.info("req:{},rsp:{}", req, rsp); 
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
 		return success(rsp.getRole());
