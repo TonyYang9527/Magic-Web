@@ -61,7 +61,7 @@ public class UserController extends BeanSupport {
 		GetRoleReq req = new GetRoleReq();
 		req.setId(new Long(105));
 		GetRoleRsp rsp = getRoleFacade.getRole(req);
-		 logger.info("req:{},rsp:{}", req, rsp); 
+		logger.info("req:{},rsp:{}", req, rsp);
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode())) {
 			return fail("返回异常");
 		}
@@ -82,22 +82,9 @@ public class UserController extends BeanSupport {
 		req.setId(new Long(105));
 		GetRoleRsp rsp = getRoleFacade.getRole(req);
 		String result = JSON.toJSONString(rsp);
-		 logger.info("req:{},rsp:{}", req, rsp); 
+		logger.info("req:{},rsp:{}", req, rsp);
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
 		return success(rsp.getRole());
 	}
-
-	// public static void main(String[] args) throws Exception {
-	// ClassPathXmlApplicationContext context = new
-	// ClassPathXmlApplicationContext(
-	// new String[] { "spring-dubbo-consumer.xml" });
-	// GetRoleFacade demoService = (GetRoleFacade) context
-	// .getBean("demoService"); // 获取远程服务代理
-	// GetRoleReq req = new GetRoleReq();
-	// req.setId(new Long(105));
-	// GetRoleRsp rsp = demoService.getRole(req);
-	// System.out.println(JSON.toJSONString(rsp));
-	//
-	// }
 }
