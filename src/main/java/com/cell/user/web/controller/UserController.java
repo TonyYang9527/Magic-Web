@@ -1,5 +1,8 @@
 package com.cell.user.web.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -16,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.cell.user.ifacade.facade.GetRoleFacade;
+import com.cell.user.ifacade.facade.SysAuthorityFacade;
 import com.cell.user.ifacade.request.GetRoleReq;
+import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
 import com.cell.user.ifacade.response.GetRoleRsp;
+import com.cell.user.ifacade.response.authority.CreateSysAuthorityRsp;
 import com.cell.user.vo.single.RoleVo;
 import com.cell.user.web.support.BeanSupport;
 import com.cell.user.web.support.Result;
@@ -30,6 +36,9 @@ public class UserController extends BeanSupport {
 
 	@Resource
 	private GetRoleFacade getRoleFacade;
+
+	@Resource
+	private SysAuthorityFacade authorityService;
 
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -76,15 +85,33 @@ public class UserController extends BeanSupport {
 	@ApiOperation(value = "删除消息")
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
-	public Result<RoleVo> test() {
-		// // 获取远程服务代理
-		GetRoleReq req = new GetRoleReq();
-		req.setId(new Long(105));
-		GetRoleRsp rsp = getRoleFacade.getRole(req);
+	public Result<String> test() {
+
+		CreateSysAuthorityReq req = new CreateSysAuthorityReq();
+		req.setGroupId(0L);
+		req.setJobId(2L);
+		req.setOrganizationId(3L);
+		Set<Long> roleIds = new HashSet<Long>();
+		roleIds.add(new Long(1));
+		roleIds.add(new Long(2));
+		roleIds.add(new Long(3));
+		req.setRoleIds(roleIds);
+		req.setType(true);
+		req.setUserId(1L);
+		CreateSysAuthorityRsp rsp = authorityService.createSysAuthority(req);
 		String result = JSON.toJSONString(rsp);
 		logger.info("req:{},rsp:{}", req, rsp);
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
-		return success(rsp.getRole());
+		return success(result);
+		// // 获取远程服务代理
+//		GetRoleReq req = new GetRoleReq();
+//		req.setId(new Long(105));
+//		GetRoleRsp rsp = getRoleFacade.getRole(req);
+//		String result = JSON.toJSONString(rsp);
+//		logger.info("req:{},rsp:{}", req, rsp);
+//		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
+//			return fail("返回异常");
+//		return success(rsp.getRole());
 	}
 }
