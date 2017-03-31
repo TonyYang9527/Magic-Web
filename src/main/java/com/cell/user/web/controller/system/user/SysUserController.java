@@ -43,7 +43,7 @@ public class SysUserController extends BeanSupport {
 	 * @param id
 	 */
 	@ApiOperation(value = "删除消息")
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView index() {
 		ModelAndView view = new ModelAndView("user/add");
 		return view;
@@ -55,7 +55,7 @@ public class SysUserController extends BeanSupport {
 	 * @param id
 	 */
 	@ApiOperation(value = "删除消息")
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/get", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<RoleVo> getRoleById(
 			@RequestParam(value = "id", required = true) Long id) {
@@ -78,7 +78,7 @@ public class SysUserController extends BeanSupport {
 	 * @param id
 	 */
 	@ApiOperation(value = "删除消息")
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<RoleVo> test() {
 		// 获取远程服务代理

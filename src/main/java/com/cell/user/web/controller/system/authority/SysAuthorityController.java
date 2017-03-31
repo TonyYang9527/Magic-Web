@@ -39,7 +39,7 @@ public class SysAuthorityController extends BeanSupport {
 	 * @param id
 	 */
 	@ApiOperation(value = "创建用户权限")
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<String> createSysAuthority() {
 
