@@ -1,4 +1,4 @@
-package com.cell.user.web.controller;
+package com.cell.user.web.controller.system.user;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +32,7 @@ import com.cell.user.web.support.RetCodeConst;
 @Api(tags = { "消息服务" })
 @RestController
 @RequestMapping("/services/user")
-public class UserController extends BeanSupport {
+public class SysUserController extends BeanSupport {
 
 	@Resource
 	private GetRoleFacade getRoleFacade;
@@ -40,7 +40,7 @@ public class UserController extends BeanSupport {
 	@Resource
 	private SysAuthorityFacade authorityService;
 
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+	private Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
 	/**
 	 * 获取role
@@ -85,33 +85,15 @@ public class UserController extends BeanSupport {
 	@ApiOperation(value = "删除消息")
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
-	public Result<String> test() {
-
-		CreateSysAuthorityReq req = new CreateSysAuthorityReq();
-		req.setGroupId(0L);
-		req.setJobId(2L);
-		req.setOrganizationId(3L);
-		Set<Long> roleIds = new HashSet<Long>();
-		roleIds.add(new Long(1));
-		roleIds.add(new Long(2));
-		roleIds.add(new Long(3));
-		req.setRoleIds(roleIds);
-		req.setType(true);
-		req.setUserId(1L);
-		CreateSysAuthorityRsp rsp = authorityService.createSysAuthority(req);
+	public Result<RoleVo> test() {
+		// 获取远程服务代理
+		GetRoleReq req = new GetRoleReq();
+		req.setId(new Long(105));
+		GetRoleRsp rsp = getRoleFacade.getRole(req);
 		String result = JSON.toJSONString(rsp);
 		logger.info("req:{},rsp:{}", req, rsp);
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
-		return success(result);
-		// // 获取远程服务代理
-//		GetRoleReq req = new GetRoleReq();
-//		req.setId(new Long(105));
-//		GetRoleRsp rsp = getRoleFacade.getRole(req);
-//		String result = JSON.toJSONString(rsp);
-//		logger.info("req:{},rsp:{}", req, rsp);
-//		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
-//			return fail("返回异常");
-//		return success(rsp.getRole());
+		return success(rsp.getRole());
 	}
 }
