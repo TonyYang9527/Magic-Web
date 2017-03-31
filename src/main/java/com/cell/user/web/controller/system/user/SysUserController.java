@@ -1,8 +1,5 @@
 package com.cell.user.web.controller.system.user;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -21,9 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.cell.user.ifacade.facade.GetRoleFacade;
 import com.cell.user.ifacade.facade.SysAuthorityFacade;
 import com.cell.user.ifacade.request.GetRoleReq;
-import com.cell.user.ifacade.request.authority.CreateSysAuthorityReq;
 import com.cell.user.ifacade.response.GetRoleRsp;
-import com.cell.user.ifacade.response.authority.CreateSysAuthorityRsp;
 import com.cell.user.vo.single.RoleVo;
 import com.cell.user.web.support.BeanSupport;
 import com.cell.user.web.support.Result;
@@ -31,7 +26,7 @@ import com.cell.user.web.support.RetCodeConst;
 
 @Api(tags = { "消息服务" })
 @RestController
-@RequestMapping("/services/user")
+@RequestMapping("/admin/user")
 public class SysUserController extends BeanSupport {
 
 	@Resource
@@ -91,7 +86,7 @@ public class SysUserController extends BeanSupport {
 		req.setId(new Long(105));
 		GetRoleRsp rsp = getRoleFacade.getRole(req);
 		String result = JSON.toJSONString(rsp);
-		logger.info("req:{},rsp:{}", req, rsp);
+		logger.info("req:{},rsp:{},result:{}", req, rsp, result);
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
 		return success(rsp.getRole());
