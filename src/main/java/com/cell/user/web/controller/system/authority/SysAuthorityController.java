@@ -56,7 +56,7 @@ public class SysAuthorityController extends BeanSupport {
 		req.setUserId(1L);
 		CreateSysAuthorityRsp rsp = authorityService.createSysAuthority(req);
 		String result = JSON.toJSONString(rsp);
-		logger.info("req:{},rsp:{}", req, rsp);
+		logger.info("req:{},rsp:{}",  JSON.toJSONString(req), JSON.toJSONString(rsp));
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
 		return success(result);
