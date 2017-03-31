@@ -69,6 +69,7 @@ public class SysUserController extends BeanSupport {
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode())) {
 			return fail("返回异常");
 		}
+		
 		return success(rsp.getRole());
 	}
 
