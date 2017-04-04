@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +43,6 @@ public class SysAuthorityController extends BeanSupport {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<String> createSysAuthority() {
-
 		CreateSysAuthorityReq req = new CreateSysAuthorityReq();
 		req.setGroupId(0L);
 		req.setJobId(2L);
@@ -56,7 +56,8 @@ public class SysAuthorityController extends BeanSupport {
 		req.setUserId(1L);
 		CreateSysAuthorityRsp rsp = authorityService.createSysAuthority(req);
 		String result = JSON.toJSONString(rsp);
-		logger.info("req:{},rsp:{}",  JSON.toJSONString(req), JSON.toJSONString(rsp));
+		logger.info("req:{},rsp:{}", JSON.toJSONString(req),
+				JSON.toJSONString(rsp));
 		if (rsp == null || RetCodeConst.FAIL.equals(rsp.getRetCode()))
 			return fail("返回异常");
 		return success(result);

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cell.user.ifacade.facade.SysAuthorityFacade;
+import com.cell.user.ifacade.facade.SysUserFacade;
 import com.cell.user.web.support.BeanSupport;
 import com.cell.user.web.support.Result;
 
@@ -24,7 +24,7 @@ import com.cell.user.web.support.Result;
 public class SysUserController extends BeanSupport {
 
 	@Resource
-	private SysAuthorityFacade authorityService;
+	private SysUserFacade userService;
 
 	private Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
