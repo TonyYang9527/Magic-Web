@@ -3,6 +3,8 @@ package com.cell.user.web.shrio.realm;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,6 +16,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cell.user.ifacade.facade.SysAuthorityFacade;
+import com.cell.user.ifacade.facade.SysUserFacade;
 
 /**
  * <p>
@@ -28,6 +33,11 @@ import org.slf4j.LoggerFactory;
 public class UserRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(UserRealm.class);
+
+	@Resource
+	private SysUserFacade userService;
+	@Resource
+	private SysAuthorityFacade authorityService;
 
 	private static final String OR_OPERATOR = " or ";
 	private static final String AND_OPERATOR = " and ";
@@ -59,24 +69,25 @@ public class UserRealm extends AuthorizingRealm {
 		if (upToken.getPassword() != null) {
 			password = new String(upToken.getPassword());
 		}
-//		User user = null;
-//		try {
-//			user = userService.login(username, password);
-//		} catch (UserNotExistsException e) {
-//			throw new UnknownAccountException(e.getMessage(), e);
-//		} catch (UserPasswordNotMatchException e) {
-//			throw new AuthenticationException(e.getMessage(), e);
-//		} catch (UserPasswordRetryLimitExceedException e) {
-//			throw new ExcessiveAttemptsException(e.getMessage(), e);
-//		} catch (UserBlockedException e) {
-//			throw new LockedAccountException(e.getMessage(), e);
-//		} catch (Exception e) {
-//			log.error("login error", e);
-//			throw new AuthenticationException(new UserException(
-//					"user.unknown.error", null));
-//		}
+		// User user = null;
+		// try {
+		// user = userService.login(username, password);
+		// } catch (UserNotExistsException e) {
+		// throw new UnknownAccountException(e.getMessage(), e);
+		// } catch (UserPasswordNotMatchException e) {
+		// throw new AuthenticationException(e.getMessage(), e);
+		// } catch (UserPasswordRetryLimitExceedException e) {
+		// throw new ExcessiveAttemptsException(e.getMessage(), e);
+		// } catch (UserBlockedException e) {
+		// throw new LockedAccountException(e.getMessage(), e);
+		// } catch (Exception e) {
+		// log.error("login error", e);
+		// throw new AuthenticationException(new UserException(
+		// "user.unknown.error", null));
+		// }
 		SimpleAuthenticationInfo info = null;
-		// info = new SimpleAuthenticationInfo(user.getUsername(), password.toCharArray(), getName());
+		// info = new SimpleAuthenticationInfo(user.getUsername(),
+		// password.toCharArray(), getName());
 		return info;
 	}
 
