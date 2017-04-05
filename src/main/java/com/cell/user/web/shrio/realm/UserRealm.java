@@ -18,7 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cell.user.ifacade.facade.SysAuthorityFacade;
-import com.cell.user.ifacade.facade.SysUserFacade;
+import com.cell.user.vo.single.SysUserVo;
+import com.cell.user.web.service.UserAuthService;
+import com.cell.user.web.service.UserService;
 
 /**
  * <p>
@@ -35,9 +37,10 @@ public class UserRealm extends AuthorizingRealm {
 	private Logger logger = LoggerFactory.getLogger(UserRealm.class);
 
 	@Resource
-	private SysUserFacade userService;
+	private UserService userService;
+
 	@Resource
-	private SysAuthorityFacade authorityService;
+	private UserAuthService authorityService;
 
 	private static final String OR_OPERATOR = " or ";
 	private static final String AND_OPERATOR = " and ";
@@ -47,11 +50,11 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();
-		// User user = userService.findByUsername(username);
-		// Set<String> roles =userAuthService.findStringRoles(user)
+
+			SysUserVo user = userService.findByUsername(username);
+		Set<String> roles = authorityService.findStringRoles(user);
 		// Set<String> permissions =
 		// userAuthService.findStringPermissions(user)
-		Set<String> roles = new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.setRoles(roles);
