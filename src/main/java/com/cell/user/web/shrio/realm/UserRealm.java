@@ -1,6 +1,5 @@
 package com.cell.user.web.shrio.realm;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -17,7 +16,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cell.user.ifacade.facade.SysAuthorityFacade;
+import com.alibaba.fastjson.JSON;
 import com.cell.user.vo.single.SysUserVo;
 import com.cell.user.web.service.UserAuthService;
 import com.cell.user.web.service.UserService;
@@ -45,23 +44,6 @@ public class UserRealm extends AuthorizingRealm {
 	private static final String OR_OPERATOR = " or ";
 	private static final String AND_OPERATOR = " and ";
 	private static final String NOT_OPERATOR = "not ";
-
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principals) {
-		String username = (String) principals.getPrimaryPrincipal();
-
-			SysUserVo user = userService.findByUsername(username);
-		Set<String> roles = authorityService.findStringRoles(user);
-		// Set<String> permissions =
-		// userAuthService.findStringPermissions(user)
-		Set<String> permissions = new HashSet<String>();
-		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		authorizationInfo.setRoles(roles);
-		authorizationInfo.setStringPermissions(permissions);
-		logger.info("roles:{},permissions:{}", roles, permissions);
-		return authorizationInfo;
-	}
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
@@ -93,5 +75,61 @@ public class UserRealm extends AuthorizingRealm {
 		// password.toCharArray(), getName());
 		return info;
 	}
+
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(
+			PrincipalCollection principals) {
+		String username = (String) principals.getPrimaryPrincipal();
+
+		SysUserVo user = userService.findByUsername(username);
+		Set<String> roles = authorityService.findStringRoles(user);
+		Set<String> permissions = authorityService.findStringPermissions(user);
+
+		logger.info("user:{},roles:{},permissions:{}", JSON.toJSONString(user),
+				JSON.toJSONString(roles), JSON.toJSONString(permissions));
+
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		authorizationInfo.setRoles(roles);
+		authorizationInfo.setStringPermissions(permissions);
+		return authorizationInfo;
+	}
+
+	
+	   /**
+     * 支持or and not 关键词  不支持and or混用
+     *
+     * @param principals
+     * @param permission
+     * @return
+     */
+    public boolean isPermitted(PrincipalCollection principals, String permission) {
+        if (permission.contains(OR_OPERATOR)) {
+            String[] permissions = permission.split(OR_OPERATOR);
+            for (String orPermission : permissions) {
+                if (isPermittedWithNotOperator(principals, orPermission)) {
+                    return true;
+                }
+            }
+            return false;
+        } else if (permission.contains(AND_OPERATOR)) {
+            String[] permissions = permission.split(AND_OPERATOR);
+            for (String orPermission : permissions) {
+                if (!isPermittedWithNotOperator(principals, orPermission)) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return isPermittedWithNotOperator(principals, permission);
+        }
+    }
+
+    private boolean isPermittedWithNotOperator(PrincipalCollection principals, String permission) {
+        if (permission.startsWith(NOT_OPERATOR)) {
+            return !super.isPermitted(principals, permission.substring(NOT_OPERATOR.length()));
+        } else {
+            return super.isPermitted(principals, permission);
+        }
+    }
 
 }
