@@ -1,4 +1,4 @@
-package com.cell.user.web.controller.system.role;
+package com.cell.user.web.controller.resource;
 
 import io.swagger.annotations.Api;
 
@@ -9,16 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cell.user.ifacade.facade.SysRoleFacade;
+import com.cell.user.ifacade.facade.SysResourceFacade;
 import com.cell.user.web.support.BeanSupport;
 
 @Api(tags = { "消息服务" })
 @RestController
-@RequestMapping("/admin/role")
-public class SysRoleController extends BeanSupport {
+@RequestMapping("/admin/resource")
+public class SysResourceController extends BeanSupport {
 
 	@Resource
-	private SysRoleFacade roleService;
+	private SysResourceFacade resourceService;
 
-	private Logger logger = LoggerFactory.getLogger(SysRoleController.class);
+	private Logger logger = LoggerFactory
+			.getLogger(SysResourceController.class);
 }

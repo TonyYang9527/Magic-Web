@@ -1,4 +1,4 @@
-package com.cell.user.web.controller.system.permission;
+package com.cell.user.web.controller.permission;
 
 import javax.annotation.Resource;
 

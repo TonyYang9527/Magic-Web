@@ -1,4 +1,4 @@
-package com.cell.user.web.controller.system.relation;
+package com.cell.user.web.controller.relation;
 
 import io.swagger.annotations.Api;
 

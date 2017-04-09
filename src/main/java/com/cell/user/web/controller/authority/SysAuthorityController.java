@@ -1,4 +1,4 @@
-package com.cell.user.web.controller.system.authority;
+package com.cell.user.web.controller.authority;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

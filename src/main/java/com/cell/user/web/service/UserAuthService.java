@@ -51,9 +51,7 @@ public class UserAuthService {
 		if (user == null) {
 			return null;
 		}
-		
 		Set<String> result = Sets.newHashSet();
-		
 		Set<Long> roleIds = authorityService.findRoles(user);
 		
 		List<SysRoleResourcePermissionVo> relations = relationService
