@@ -15,6 +15,9 @@ import com.cell.user.ifacade.request.user.GetSysUserReq;
 import com.cell.user.ifacade.response.user.FindSysUserRsp;
 import com.cell.user.ifacade.response.user.GetSysUserRsp;
 import com.cell.user.vo.single.SysUserVo;
+import com.cell.user.web.exception.user.UserBlockedException;
+import com.cell.user.web.exception.user.UserNotExistsException;
+import com.cell.user.web.exception.user.UserPasswordNotMatchException;
 
 @Service
 public class UserService {
@@ -51,7 +54,7 @@ public class UserService {
 
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 			logger.info(username, "loginError", "username is empty");
-			// throw new UserNotExistsException();
+			throw new UserNotExistsException();
 		}
 		// 密码如果不在指定范围内 肯定错误
 		if (password.length() < PASSWORD_MIN_LENGTH
@@ -59,22 +62,19 @@ public class UserService {
 			logger.info(username, "loginError",
 					"password length error! password is between {} and {}",
 					PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
-			// throw new UserPasswordNotMatchException();
+			throw new UserPasswordNotMatchException();
 		}
 		SysUserVo user = ((UserService) AopContext.currentProxy())
 				.findSysUsers(username);
 		if (user == null || Boolean.TRUE.equals(user.getDeleted())) {
 			logger.info(username, "loginError", "user is not exists!");
-
-			// throw new UserNotExistsException();
+			throw new UserNotExistsException();
 		}
 
 		passwordService.validate(user, password);
-		// if (user.getStatus() == UserStatus.blocked) {
 		if (user.getStatus()) {
 			logger.info(username, "loginError", "user is blocked!");
-			// throw new UserBlockedException(
-			// userStatusHistoryService.getLastReason(user));
+			throw new UserBlockedException("user is blocked!");
 		}
 
 		logger.info(username, "loginSuccess", "");
