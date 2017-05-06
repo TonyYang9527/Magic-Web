@@ -36,23 +36,23 @@
 
 			<form action="../../index2.html" method="post">
 				<div class="form-group has-feedback">
-					<input type="email" class="form-control" placeholder="Email"> <span
+					<input type="text"  id="username" name="username" class="form-control" placeholder="请输入用户名、邮箱或手机号"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="Password"> <span
+					<input type="password" id="password" name="password"  class="form-control" placeholder="请输入密码"> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="row">
 					<div class="col-xs-8">
 						<div class="checkbox icheck">
-							<label> <input type="checkbox"> Remember Me
+							<label> <input type="checkbox" name="rememberMe" value="true" >下次自动登录
 							</label>
 						</div>
 					</div>
 					<!-- /.col -->
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
 					</div>
 					<!-- /.col -->
 				</div>

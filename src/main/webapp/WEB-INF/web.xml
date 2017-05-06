@@ -10,7 +10,7 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<!-- filter start -->
-	<!-- sitemesh page 装饰-->
+	<!-- sitemesh page 装饰 -->
 	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
@@ -18,8 +18,8 @@
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> 
-	<!--配置SiteMesh标签库-->
+	</filter-mapping>
+	<!--配置SiteMesh标签库 -->
 	<jsp-config>
 		<taglib>
 			<taglib-uri>sitemesh-page</taglib-uri>
@@ -29,7 +29,7 @@
 			<taglib-uri>sitemesh-decorator</taglib-uri>
 			<taglib-location>/WEB-INF/lib/sitemesh-decorator.tld</taglib-location>
 		</taglib>
-	</jsp-config> 
+	</jsp-config>
 
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
@@ -49,6 +49,22 @@
 	</filter-mapping>
 
 
+	<!-- shiro 安全过滤器 -->
+	<!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
 
 	<!--SpringMVC通过配置HiddenHttpMethodFilter来支持PUT/DELETE请求 -->
 	<!-- <filter> <filter-name>HiddenHttpMethodFilter</filter-name> <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class> 

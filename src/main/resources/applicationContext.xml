@@ -31,7 +31,7 @@
 	<!-- 注册自定义的处理器拦截器 -->
 	<!-- <mvc:interceptors> -->
 	<!-- 静态资源转交给默认的Servlet来响应静态文件 -->
-	<mvc:default-servlet-handler /> 
+	<mvc:default-servlet-handler />
 	<!-- 逻辑静态资源路径到物理静态资源路径的支持 js css png jpg -->
 	<mvc:resources location="/static/" mapping="/static/**" />
 
@@ -97,6 +97,22 @@
 			</props>
 		</property>
 	</bean>
-
+	<!-- shrio start -->
+	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcacheManager" />
+	</bean>
+	<!--ehcache -->
+	<bean id="ehcacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache/ehcache_es.xml" />
+	</bean>
+	<!-- shrio SecurityManager -->
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	<import resource="spring-config-shiro.xml" />
+	<!-- shrio end -->
+	<!-- dubbo service -->
 	<import resource="spring-dubbo-consumer.xml" />
 </beans>
