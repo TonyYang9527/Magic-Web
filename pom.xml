@@ -770,6 +770,7 @@
 					<include>system.properties</include>
 					<include>logback.xml</include>
 					<include>spring-mvc-shiro.xml</include>
+					<include>spring-config-shiro.xml</include>
 				</includes>
 			</resource>
 			<resource>
@@ -778,7 +779,6 @@
 				<includes>
 					<include>spring-mvc.xml</include>
 					<include>spring-dubbo-consumer.xml</include>
-					<include>spring-config-shiro.xml</include>
 				</includes>
 			</resource>
 		</resources>

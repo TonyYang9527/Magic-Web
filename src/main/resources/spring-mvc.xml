@@ -109,7 +109,8 @@
 	
 	<!-- dubbo service -->
 	<import resource="spring-dubbo-consumer.xml" />
-	<import resource="spring-mvc-shiro.xml" />
+<!--	<import resource="spring-mvc-shiro.xml" /> -->
+	<!--<import resource="spring-config-shiro.xml" /> -->
 	<!-- shrio end -->
 
 </beans>
