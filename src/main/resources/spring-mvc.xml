@@ -106,13 +106,10 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache/ehcache_es.xml" />
 	</bean>
-	<!-- shrio SecurityManager -->
-	<bean
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
-	<import resource="spring-config-shiro.xml" />
-	<!-- shrio end -->
+	
 	<!-- dubbo service -->
 	<import resource="spring-dubbo-consumer.xml" />
+	<import resource="spring-mvc-shiro.xml" />
+	<!-- shrio end -->
+
 </beans>
